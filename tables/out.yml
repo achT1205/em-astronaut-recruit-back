@@ -1,0 +1,46 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Dynamodb tables
+Parameters:
+  Project:
+    Type: String
+    Description: Project name
+    Default: EM Recruit
+  App:
+    Type: String
+    Description: Application environment name
+    Default: db
+  Stage:
+    Type: String
+    Description: Application environment stage
+    Default: test
+    AllowedValues:
+    - dev
+    - test
+    - staging
+    - prod
+Resources:
+  EMPlayerTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName:
+        Fn::Sub: ${Stage}-${App}
+      AttributeDefinitions:
+      - AttributeName: walletId
+        AttributeType: S
+      KeySchema:
+      - AttributeName: walletId
+        KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+      Tags:
+      - Key: App
+        Value:
+          Ref: App
+      - Key: Stage
+        Value:
+          Ref: Stage
+      - Key: Project
+        Value:
+          Ref: Project
+    Metadata:
+      SamResourceId: EMPlayerTable
