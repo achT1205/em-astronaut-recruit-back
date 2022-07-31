@@ -7,6 +7,6 @@
     "scripts": {
       "package:db": "sam package --config-env db",
       "deploy:db": "sam deploy --config-env db --no-fail-on-empty-changeset",
-      "push:db": "npm run package:db && npm run deploy:db"
+      "publish:db": "npm run package:db && npm run deploy:db"
     }
   }
